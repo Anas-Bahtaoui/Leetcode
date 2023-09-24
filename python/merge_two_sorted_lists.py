@@ -1,3 +1,11 @@
+# define a class of ListNode
+
+class ListNode:
+
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
 def mergeTwoLists(list1, list2):
     if list1 is None:
         return list2
@@ -12,10 +20,10 @@ def mergeTwoLists(list1, list2):
     
 # test
 list1 = ListNode(1)
-list1.next = ListNode(2)
+list1.next = ListNode(4)
 
 list2 = ListNode(3)
-list2.next = ListNode(4)
+list2.next = ListNode(2)
 
 list3 = mergeTwoLists(list1, list2)
 
