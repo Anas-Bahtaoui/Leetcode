@@ -1,18 +1,49 @@
-def twoSum(nums, target):
-    """
-    :type nums: List[int]
-    :type target: int
-    :rtype: List[int]
-    """
-    for i in range(len(nums) - 1):
-        x = nums[i]
-        y = target - x
-        rest = nums[i+1:]
-        if y in rest:
-            index = i + 1 + rest.index(y)
-            return list((i, index))
+# let's implement the two sum problem
 
-# test case
-nums = [2, 7, 11, 15]
-target = 9
-print(twoSum(nums, target))
+# brute force solution
+
+def twoSum_brute_force(nums, target):
+    for i, x in enumerate(nums):
+        for j, y in enumerate(nums[i+1:]):
+            if x + y == target:
+                return list((i, j+i+1))
+
+# Two-pass Hash Table solution
+
+def twoSum_two_pass(nums, target):
+    hash_table = {}
+    for i, x in enumerate(nums):
+        hash_table[x] = i
+    for i, x in enumerate(nums):
+        y = target - x
+        if y in hash_table and hash_table[y] != i:
+            return list((i, hash_table[y]))
+
+# One-pass Hash Table solution
+
+def twoSum_one_pass(nums, target):
+    hash_table = {}
+    for i, x in enumerate(nums):
+        y = target - x
+        if y in hash_table:
+            return list((i, hash_table[y]))
+        hash_table[x] = i
+
+# compare the time complexity of the three solutions
+
+import time
+
+def timeit(func, *args):
+    start = time.time()
+    func(*args)
+    end = time.time()
+    return end - start
+
+# we make a long list of numbers and a target
+
+nums = list(range(1000000))
+target = 999999
+
+print(timeit(twoSum_brute_force, nums, target))
+print(timeit(twoSum_two_pass, nums, target))
+print(timeit(twoSum_one_pass, nums, target))
